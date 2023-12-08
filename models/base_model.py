@@ -7,6 +7,7 @@ Defines the BaseModel class, which serves as the base class for other classes.
 
 import uuid
 from datetime import datetime
+from models import storage
 
 
 class BaseModel:
@@ -89,6 +90,9 @@ class BaseModel:
 
     def save(self):
         """
-        Updates the 'updated_at' attribute with the current datetime.
+        Updates the 'updated_at' attribute with the current datetime
+        and saves the object to the storage.
         """
         self.updated_at = datetime.now()
+        storage.new(self)
+        storage.save()
