@@ -3,6 +3,7 @@
 User that inherits from BaseModel
 """
 
+from models.engine import storage
 from models.base_model import BaseModel
 
 

@@ -50,9 +50,9 @@ class FileStorage:
                 objs_dict = json.load(f)
                 for key, value in objs_dict.items():
                     class_name, obj_id = key.split('.')
-                    cls = FileStorage.__objects.get(class_name)
+                    cls = self.__objects.get(class_name)
                     if cls:
                         obj = cls(**value)
-                        FileStorage.__objects[key] = obj
+                        self.__objects[key] = obj
         except FileNotFoundError:
             pass
