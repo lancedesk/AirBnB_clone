@@ -4,8 +4,13 @@ Interactive shell for AirBnB project.
 """
 
 import cmd
-from models.base_model import BaseModel
 from models import storage
+from models.base_model import BaseModel
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.place import Place
+from models.review import Review
 
 
 class HBNBCommand(cmd.Cmd):
@@ -30,13 +35,13 @@ class HBNBCommand(cmd.Cmd):
         if not args:
             print("** class name missing **")
             return
-        
+
         class_name = args[0]
-        if class_name not in class_dict:
+        if class_name not in storage.classes():
             print("** class doesn't exist **")
             return
 
-        cls = class_dict[class_name]
+        cls = storage.classes()[class_name]
         new_instance = cls()
         new_instance.save()
         print(new_instance.id)
@@ -49,7 +54,7 @@ class HBNBCommand(cmd.Cmd):
             return
 
         class_name = args[0]
-        if class_name not in class_dict:
+        if class_name not in storage.classes():
             print("** class doesn't exist **")
             return
 
@@ -119,6 +124,7 @@ class HBNBCommand(cmd.Cmd):
                         instance.save()
                     else:
                         print("** attribute doesn't exist **")
+
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()

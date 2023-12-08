@@ -6,12 +6,25 @@ Module containing the FileStorage class.
 import json
 from models.user import User
 from models.base_model import BaseModel
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.place import Place
+from models.review import Review
 
 
 class FileStorage:
     """Handles serialization and deserialization of objects"""
     __file_path = "file.json"
-    __objects = {}
+    __objects = {
+        'User': User,
+        'BaseModel': BaseModel,
+        'State': State,
+        'City': City,
+        'Amenity': Amenity,
+        'Place': Place,
+        'Review': Review,
+    }
 
     def all(self):
         """Returns the dictionary __objects"""
@@ -37,8 +50,9 @@ class FileStorage:
                 objs_dict = json.load(f)
                 for key, value in objs_dict.items():
                     class_name, obj_id = key.split('.')
-                    cls = eval(class_name)
-                    obj = cls(**value)
-                    FileStorage.__objects[key] = obj
+                    cls = FileStorage.__objects.get(class_name)
+                    if cls:
+                        obj = cls(**value)
+                        FileStorage.__objects[key] = obj
         except FileNotFoundError:
             pass
