@@ -11,6 +11,7 @@ from models.city import City
 from models.amenity import Amenity
 from models.place import Place
 from models.review import Review
+from models.user import User
 
 
 class HBNBCommand(cmd.Cmd):
@@ -124,6 +125,24 @@ class HBNBCommand(cmd.Cmd):
                         instance.save()
                     else:
                         print("** attribute doesn't exist **")
+
+    def do_count(self, arg):
+        """Counts the number of instances of a class"""
+        args = arg.strip().split('.')
+        if len(args) != 2 or args[1] != "count()":
+            print("** Invalid syntax. Use <class name>.count() **")
+            return
+
+        class_name = args[0]
+        if class_name not in storage.classes():
+            print("** class doesn't exist **")
+            return
+
+        instances = storage.all().values()
+        count = sum(
+            1 for inst in instances if type(inst).__name__ == class_name
+        )
+        print(count)
 
 
 if __name__ == "__main__":
