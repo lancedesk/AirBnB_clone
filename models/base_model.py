@@ -7,7 +7,7 @@ Defines the BaseModel class, which serves as the base class for other classes.
 
 import uuid
 from datetime import datetime
-from models.engine import storage
+from models import engine
 
 
 class BaseModel:
