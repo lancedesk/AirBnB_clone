@@ -139,13 +139,13 @@ class HBNBCommand(cmd.Cmd):
         if len(_arg) > 0 and _arg[0] not in HBNBCommand.__classes:
             print("** class doesn't exist **")
         else:
-            objl = []
+            _obj = []
             for obj in storage.all().values():
                 if len(_arg) > 0 and _arg[0] == obj.__class__.__name__:
-                    objl.append(obj.__str__())
+                    _obj.append(obj.__str__())
                 elif len(_arg) == 0:
-                    objl.append(obj.__str__())
-            print(objl)
+                    _obj.append(obj.__str__())
+            print(_obj)
 
     def do_count(self, arg):
         """Counts the number of instances of a class"""
